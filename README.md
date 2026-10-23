@@ -22,3 +22,9 @@ Das Skript liest aus dem Spielplan die Hallennummer und ruft pro Halle einmal di
 
 ## Meldungen
 Die Startseite zeigt die neuesten Beiträge von lichtenrader-sv.de. Das Skript holt sie über die WordPress-Schnittstelle (`/wp-json`) und nutzt den RSS-Feed als Ersatz. Sie landen in `data.json` unter `news`. Klappt der Abruf nicht, bleiben die zuletzt gespeicherten Meldungen stehen.
+
+## Handy-Installation
+Die App ist installierbar (Manifest, Icons, `sw.js`). Auf Android: Browsermenü → „App installieren“ oder „Zum Startbildschirm“. Auf dem iPhone: Safari → Teilen → „Zum Home-Bildschirm“. Das Icon stammt aus dem Logo-Bild. Mit einer hochauflösenden Logo-Datei (PNG ab 512 Pixel) wird es schärfer: einfach `icon-192.png`, `icon-512.png`, `icon-maskable-512.png` und `apple-touch-icon.png` ersetzen.
+
+## Schrift
+Überschriften: Anton (Slogan, Spieltag-Banner) und Antonio Bold (übrige Überschriften), Text: Systemschrift des Geräts (auf Apple-Geräten SF Pro). Die Schriftdateien liegen im Ordner `fonts/` und werden von der App selbst ausgeliefert, es gibt keine Verbindung zu Google. Benötigte Dateien: `Anton-Regular.ttf`, `Antonio-Regular.ttf`, `Antonio-Bold.ttf` (Download über fonts.google.com, Lizenz: Open Font License). Fehlen sie, nutzt die App eine Ersatzschrift.

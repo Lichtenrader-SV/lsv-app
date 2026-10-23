@@ -2,22 +2,25 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta name="theme-color" content="#e11f25"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="manifest" href="manifest.webmanifest"><link rel="icon" type="image/png" href="icon-192.png"><link rel="apple-touch-icon" href="apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="LSV Handball"><meta name="theme-color" content="#e11f25"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Lichtenrader SV Handball</title>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f4f4f4;--surface:#ffffff;--ink:#000000;--muted:#5c5c5c;--line:#dcdcdc;--green:#e11f25;--green-ink:#ffffff;--mark:#000000;--mark-ink:#ffffff;
+@font-face{font-family:"Anton";src:url("fonts/Anton-Regular.ttf") format("truetype");font-weight:400;font-display:swap}
+@font-face{font-family:"Antonio";src:url("fonts/Antonio-Regular.ttf") format("truetype");font-weight:400;font-display:swap}
+@font-face{font-family:"Antonio";src:url("fonts/Antonio-Bold.ttf") format("truetype");font-weight:700;font-display:swap}
+.hero h1,.gameday h2{font-family:var(--display);font-weight:400;letter-spacing:.01em}
+:root{--display:"Anton",Impact,"Arial Narrow",sans-serif;--head:"Antonio","Roboto Condensed","Arial Narrow","Helvetica Neue",Arial,sans-serif;--body:system-ui,-apple-system,"SF Pro Display","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;--bg:#f4f4f4;--surface:#ffffff;--ink:#000000;--muted:#5c5c5c;--line:#dcdcdc;--green:#e11f25;--green-ink:#ffffff;--mark:#000000;--mark-ink:#ffffff;
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#000000;--surface:#151515;--ink:#f4f4f4;--muted:#b0b0b0;--line:#2e2e2e;--green:#e11f25;--green-ink:#ffffff;--mark:#ffffff;--mark-ink:#000000;color-scheme:dark}}
 :root[data-theme="dark"]{--bg:#000000;--surface:#151515;--ink:#f4f4f4;--muted:#b0b0b0;--line:#2e2e2e;--green:#e11f25;--green-ink:#ffffff;--mark:#ffffff;--mark-ink:#000000;color-scheme:dark}
 *,*::before,*::after{box-sizing:inherit}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
-body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 Barlow,system-ui,sans-serif;min-height:100vh}
-h1,h2,h3{font-family:"Barlow Condensed","Arial Narrow",sans-serif;font-weight:700;line-height:1.05;margin:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 var(--body);min-height:100vh}
+h1,h2,h3{font-family:var(--head);font-weight:700;line-height:1.05;margin:0}
 .wrap{max-width:640px;margin:0 auto;padding:0 18px 110px}
 header.top{padding:22px 0 14px;display:flex;align-items:center;gap:12px}
-.logo{width:48px;height:48px;border-radius:50%;flex:none}.hero .btn{background:#ffffff;color:#000000}.badge{width:44px;height:44px;border-radius:50%;background:var(--green);color:var(--green-ink);display:grid;place-items:center;font:700 19px "Barlow Condensed",sans-serif;border:3px solid var(--mark);flex:none}
-.top b{font:700 19px/1.1 "Barlow Condensed",sans-serif;display:block}
+.logo{width:48px;height:48px;border-radius:50%;flex:none}.hero .btn{background:#ffffff;color:#000000}.badge{width:44px;height:44px;border-radius:50%;background:var(--green);color:var(--green-ink);display:grid;place-items:center;font:700 19px var(--head);border:3px solid var(--mark);flex:none}
+.top b{font:700 19px/1.1 var(--head);display:block}
 .top span{font-size:13px;color:var(--muted)}
 .hero{background:var(--green);color:var(--green-ink);border-radius:18px;padding:26px 22px 24px;position:relative;overflow:hidden;margin-bottom:22px}
 .hero::after{content:"";position:absolute;inset:14px;border:2px solid rgba(255,255,255,.35);border-radius:8px;pointer-events:none}
@@ -25,13 +28,13 @@ header.top{padding:22px 0 14px;display:flex;align-items:center;gap:12px}
 .hero>*{position:relative;z-index:1}
 .hero h1{font-size:46px;max-width:none;background:var(--green);padding:6px 10px 6px 0;display:inline-block}
 .hero p{margin:10px 0 18px;max-width:30ch;background:var(--green);display:inline-block;padding:2px 8px 2px 0}
-.btn{display:inline-block;border:0;border-radius:10px;padding:12px 18px;font:600 16px Barlow,sans-serif;background:var(--mark);color:var(--mark-ink);cursor:pointer;text-decoration:none}
+.btn{display:inline-block;border:0;border-radius:10px;padding:12px 18px;font:600 16px var(--body);background:var(--mark);color:var(--mark-ink);cursor:pointer;text-decoration:none}
 .btn.alt{background:transparent;border:2px solid var(--line);color:var(--ink)}
 section{margin-bottom:26px}
 h2{font-size:30px;margin-bottom:12px}
 .next{display:flex;gap:14px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:10px}
 .date{flex:none;width:56px;text-align:center;border-right:2px solid var(--mark);padding-right:12px}
-.date b{display:block;font:700 28px/1 "Barlow Condensed",sans-serif}
+.date b{display:block;font:700 28px/1 var(--head)}
 .date i{font-style:normal;font-size:13px;color:var(--muted)}
 .next h3{font-size:21px}
 .meta{font-size:14px;color:var(--muted)}
@@ -40,24 +43,24 @@ h2{font-size:30px;margin-bottom:12px}
 .news h3{font-size:22px;margin-bottom:4px}
 .news p{margin:4px 0 0}
 .chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:10px;margin-bottom:6px}
-.chip{flex:none;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:7px 14px;font:500 15px Barlow,sans-serif;cursor:pointer}
+.chip{flex:none;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:7px 14px;font:500 15px var(--body);cursor:pointer}
 .chip[aria-pressed="true"]{background:var(--green);color:var(--green-ink);border-color:var(--green)}
 .row{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-top:1px solid var(--line)}
 .row .grow{flex:1}
-.go{border:1.5px solid var(--green);background:transparent;color:var(--green);border-radius:8px;padding:6px 12px;font:600 14px Barlow,sans-serif;cursor:pointer;flex:none}
+.go{border:1.5px solid var(--green);background:transparent;color:var(--green);border-radius:8px;padding:6px 12px;font:600 14px var(--body);cursor:pointer;flex:none}
 .go[aria-pressed="true"]{background:var(--green);color:var(--green-ink)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .go{color:var(--mark);border-color:var(--mark)}:root:not([data-theme="light"]) .go[aria-pressed="true"]{background:var(--mark);color:var(--mark-ink)}}
 .sparte{background:var(--surface);border:1px solid var(--line);border-left:6px solid var(--green);border-radius:10px;padding:14px 16px;margin-bottom:10px}
 .sparte h3{font-size:24px}
 .sparte p{margin:4px 0 0}
 label{display:block;font-weight:600;margin:14px 0 4px}
-input,select,textarea{width:100%;font:400 16px Barlow,sans-serif;padding:11px 12px;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink)}
+input,select,textarea{width:100%;font:400 16px var(--body);padding:11px 12px;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink)}
 :focus-visible{outline:3px solid var(--mark);outline-offset:2px}
 .ok{background:var(--surface);border:2px solid var(--green);border-radius:12px;padding:18px}
-.lnk{color:var(--green);font-weight:600}@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .lnk{color:var(--mark)}}.score{flex:none;font:700 26px "Barlow Condensed",sans-serif;padding:4px 10px;border-radius:8px;border:2px solid var(--line)}.score.loss{border-color:var(--line)}.score.win{background:var(--green);color:var(--green-ink);border-color:var(--green)}.btn{text-decoration:none}.tw{overflow-x:auto}.tbl{width:100%;border-collapse:collapse;font-size:15px}.tbl th,.tbl td{padding:8px 6px;text-align:right;border-bottom:1px solid var(--line)}.tbl th:nth-child(2),.tbl td:nth-child(2){text-align:left}.tbl th{font-weight:600;color:var(--muted)}.tbl tr.me td{background:var(--green);color:var(--green-ink);font-weight:600}.legal{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:14px;margin-top:8px}.legal a{color:var(--muted)}.gameday{background:var(--green);color:var(--green-ink);border-radius:18px;padding:20px;margin-bottom:22px}.gameday h2{font-size:32px;margin:4px 0 6px}.gd-count{font:700 28px/1.1 "Barlow Condensed",sans-serif;margin-bottom:14px}.gameday .btn{background:#ffffff;color:#000000;margin-right:10px}.about{display:flex;gap:16px;align-items:center}.about img{width:84px;height:84px;border-radius:50%;flex:none}.about p{margin:0}.facts{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:14px}.facts div{grid-column:span 2;background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--green);border-radius:10px;padding:10px 12px}.facts div:nth-child(n+4){grid-column:span 3}.facts b{display:block;font:700 34px/1 "Barlow Condensed",sans-serif}.facts span{font-size:13px;color:var(--muted);line-height:1.2;display:block;margin-top:4px}.note{font-size:13px;color:var(--muted);margin-top:22px}
+.lnk{color:var(--green);font-weight:600}@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .lnk{color:var(--mark)}}.score{flex:none;font:700 26px var(--head);padding:4px 10px;border-radius:8px;border:2px solid var(--line)}.score.loss{border-color:var(--line)}.score.win{background:var(--green);color:var(--green-ink);border-color:var(--green)}.btn{text-decoration:none}.tw{overflow-x:auto}.tbl{width:100%;border-collapse:collapse;font-size:15px}.tbl th,.tbl td{padding:8px 6px;text-align:right;border-bottom:1px solid var(--line)}.tbl th:nth-child(2),.tbl td:nth-child(2){text-align:left}.tbl th{font-weight:600;color:var(--muted)}.tbl tr.me td{background:var(--green);color:var(--green-ink);font-weight:600}.legal{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:14px;margin-top:8px}.legal a{color:var(--muted)}.gameday{background:var(--green);color:var(--green-ink);border-radius:18px;padding:20px;margin-bottom:22px}.gameday h2{font-size:32px;margin:4px 0 6px}.gd-count{font:700 28px/1.1 var(--head);margin-bottom:14px}.gameday .btn{background:#ffffff;color:#000000;margin-right:10px}.about{display:flex;gap:16px;align-items:center}.about img{width:84px;height:84px;border-radius:50%;flex:none}.about p{margin:0}.facts{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:14px}.facts div{grid-column:span 2;background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--green);border-radius:10px;padding:10px 12px}.facts div:nth-child(n+4){grid-column:span 3}.facts b{display:block;font:700 34px/1 var(--head)}.facts span{font-size:13px;color:var(--muted);line-height:1.2;display:block;margin-top:4px}.note{font-size:13px;color:var(--muted);margin-top:22px}
 nav.tabs{position:fixed;left:0;right:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);display:flex;justify-content:center;padding-bottom:env(safe-area-inset-bottom,0px);z-index:5}
 nav.tabs div{display:flex;width:100%;max-width:640px}
-nav.tabs a{flex:1;text-align:center;padding:12px 4px 11px;font:600 14px Barlow,sans-serif;color:var(--muted);text-decoration:none;border-top:4px solid transparent}
+nav.tabs a{flex:1;text-align:center;padding:12px 4px 11px;font:600 14px var(--body);color:var(--muted);text-decoration:none;border-top:4px solid transparent}
 nav.tabs a[aria-current="page"]{color:var(--ink);border-top-color:var(--mark)}
 </style>
 </head>
@@ -151,7 +154,7 @@ var V={
   '<section style="margin-top:28px"><h2>Geschäftsstelle</h2><div class="sparte"><p style="margin:0">Alte Mälzerei, 3. OG<br>Steinstraße 41<br>12307 Berlin</p><p style="margin:12px 0 0;display:flex;gap:8px;flex-wrap:wrap"><a class="btn" href="'+map+'" target="_blank" rel="noopener">Route öffnen</a>'+'<a class="btn alt" href="mailto:info@lichtenrader-sv.de">E-Mail schreiben</a></p><p style="margin:12px 0 0" class="meta">info@lichtenrader-sv.de</p>'+'<p style="margin:6px 0 0">'+ext("kontakt/","Weitere Kontaktmöglichkeiten")+'</p><p style="margin:6px 0 0">'+ext("vorstand/","Das Präsidium")+'</p></div></section>'+
   '<section><h2>Unterstützen</h2>'+sup.map(function(s){return '<div class="row" style="padding:12px 0;align-items:center"><div class="grow"><b>'+ext(s[1],s[0])+'</b><div class="meta">'+s[2]+'</div></div></div>'}).join("")+'</section>'+
   '<section><h2>Hirschruf</h2><div class="sparte"><p style="margin:0">Das Hallenmagazin des LSV mit Berichten, Terminen und Geschichten aus den Teams.</p><p style="margin:10px 0 0">'+ext("der-hirschruf-das-hallenmagazin-des-lichtenrader-sv/","Magazin ansehen")+'</p></div></section>'+
-  '<div class="legal">'+legal.map(function(l){return ext(l[1],l[0],"")}).join("")+'</div>'}
+  '<p class="meta" style="margin:22px 0 0">Diese App speichert deine Auswahl (Meine Mannschaften) nur auf deinem Gerät und sendet keine Daten an den Verein. Beim Öffnen externer Links (nuLiga, ntfy, Google Maps) gelten deren Datenschutzbestimmungen. Die App wird über GitHub Pages ausgeliefert.</p><div class="legal">'+legal.map(function(l){return ext(l[1],l[0],"")}).join("")+'</div>'}
 };
 function render(keep){var t=(location.hash||"#start").slice(1);if(!V[t])t="start";
  var y=window.scrollY;document.getElementById("view").innerHTML=V[t]();
@@ -161,6 +164,7 @@ document.addEventListener("click",function(ev){var b=ev.target.closest("button")
  else if(b.dataset.go!==undefined){team=+b.dataset.go;location.hash="#spiele"}
  else if(b.dataset.fav!==undefined){var n=DATA.teams[+b.dataset.fav].name,i=FAV.indexOf(n);if(i>-1)FAV.splice(i,1);else FAV.push(n);saveFav();render(true)}
  else if(b.dataset.sc!==undefined){showAll=b.dataset.sc==="1";render(true)}});
+try{if("serviceWorker" in navigator&&location.protocol==="https:")navigator.serviceWorker.register("sw.js").catch(function(){})}catch(e){}
 window.addEventListener("hashchange",function(){render(false)});
 render(false);
 try{fetch("data.json?"+Date.now()).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){if(j&&j.teams&&j.teams.length){DATA=j;live=true;team=Math.min(team,j.teams.length-1);render(true)}}).catch(function(){})}catch(e){}
