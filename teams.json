@@ -1,0 +1,104 @@
+[
+ {
+  "name": "1. Männer",
+  "url": "https://hvberlin-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?championship=HVBerlin+26%2F27&group=495134",
+  "slug": "1-maenner",
+  "topic": "lsv-hb-1-maenner-sfi80n"
+ },
+ {
+  "name": "2. Männer",
+  "url": "https://hvberlin-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?championship=HVBerlin+26%2F27&group=495186",
+  "slug": "2-maenner",
+  "topic": "lsv-hb-2-maenner-sfi80n"
+ },
+ {
+  "name": "3. Männer",
+  "url": "https://hvberlin-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?championship=HVBerlin+26%2F27&group=495171",
+  "slug": "3-maenner",
+  "topic": "lsv-hb-3-maenner-sfi80n"
+ },
+ {
+  "name": "1. Frauen",
+  "url": "https://hvberlin-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?championship=HVBerlin+26%2F27&group=495183",
+  "slug": "1-frauen",
+  "topic": "lsv-hb-1-frauen-sfi80n"
+ },
+ {
+  "name": "2. Frauen",
+  "url": "https://hvberlin-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?championship=HVBerlin+26%2F27&group=495096",
+  "slug": "2-frauen",
+  "topic": "lsv-hb-2-frauen-sfi80n"
+ },
+ {
+  "name": "3. Frauen",
+  "url": "https://hvberlin-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?championship=HVBerlin+26%2F27&group=513733",
+  "slug": "3-frauen",
+  "topic": "lsv-hb-3-frauen-sfi80n"
+ },
+ {
+  "name": "mA-Jugend",
+  "url": "https://hvberlin-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?targetFed=RLOS&championship=RLOS+26%2F27&group=497434",
+  "slug": "ma-jugend",
+  "topic": "lsv-hb-ma-jugend-sfi80n"
+ },
+ {
+  "name": "wA-Jugend",
+  "url": "https://hvberlin-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?championship=HVBerlin+26%2F27&group=495150",
+  "slug": "wa-jugend",
+  "topic": "lsv-hb-wa-jugend-sfi80n"
+ },
+ {
+  "name": "mB-Jugend 1",
+  "url": "https://hvberlin-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?championship=HVBerlin+26%2F27&group=495160",
+  "slug": "mb-jugend-1",
+  "topic": "lsv-hb-mb-jugend-1-sfi80n"
+ },
+ {
+  "name": "mB-Jugend 2",
+  "url": "https://hvberlin-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?championship=HVBerlin+26%2F27&group=495135",
+  "slug": "mb-jugend-2",
+  "topic": "lsv-hb-mb-jugend-2-sfi80n"
+ },
+ {
+  "name": "mB-Jugend 3",
+  "url": "https://hvberlin-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?championship=HVBerlin+26%2F27&group=495123",
+  "slug": "mb-jugend-3",
+  "topic": "lsv-hb-mb-jugend-3-sfi80n"
+ },
+ {
+  "name": "wB-Jugend",
+  "url": "https://hvberlin-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?championship=HVBerlin+26%2F27&group=495136",
+  "slug": "wb-jugend",
+  "topic": "lsv-hb-wb-jugend-sfi80n"
+ },
+ {
+  "name": "mC-Jugend 1",
+  "url": "https://hvberlin-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?championship=HVBerlin+26%2F27&group=495094",
+  "slug": "mc-jugend-1",
+  "topic": "lsv-hb-mc-jugend-1-sfi80n"
+ },
+ {
+  "name": "mC-Jugend 2",
+  "url": "https://hvberlin-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?championship=HVBerlin+26%2F27&group=512673",
+  "slug": "mc-jugend-2",
+  "topic": "lsv-hb-mc-jugend-2-sfi80n"
+ },
+ {
+  "name": "mD-Jugend 1",
+  "url": "https://hvberlin-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?championship=HVBerlin+26%2F27&group=495106",
+  "slug": "md-jugend-1",
+  "topic": "lsv-hb-md-jugend-1-sfi80n"
+ },
+ {
+  "name": "mD-Jugend 2",
+  "url": "https://hvberlin-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?championship=HVBerlin+26%2F27&group=495126",
+  "slug": "md-jugend-2",
+  "topic": "lsv-hb-md-jugend-2-sfi80n"
+ },
+ {
+  "name": "wD-Jugend",
+  "url": "https://hvberlin-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?championship=HVBerlin+26%2F27&group=495151",
+  "slug": "wd-jugend",
+  "topic": "lsv-hb-wd-jugend-sfi80n"
+ }
+]
