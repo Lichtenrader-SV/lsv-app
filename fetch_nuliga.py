@@ -50,8 +50,10 @@ class Page(HTMLParser):
         super().__init__(convert_charrefs=True)
         self.tables, self.stack, self.row, self.cell, self.span, self.href = [], [], None, None, 1, ""
         self.h1, self.in_h1 = "", False
+        self.text = []
     def handle_starttag(self, tag, attrs):
         a = dict(attrs)
+        if tag in ("br", "p", "div", "tr", "td", "th", "li", "table", "h1", "h2", "h3", "h4", "dt", "dd"): self.text.append("\n")
         if tag == "h1": self.in_h1 = True
         elif tag == "table": self.stack.append([])
         elif tag == "tr" and self.stack: self.row = Row()
@@ -62,6 +64,7 @@ class Page(HTMLParser):
         elif tag == "a" and self.cell is not None and not self.href: self.href = a.get("href", "") or ""
         elif tag == "br" and self.cell is not None: self.cell.append(" ")
     def handle_endtag(self, tag):
+        if tag in ("p", "div", "tr", "td", "th", "li", "table", "h1", "h2", "h3", "h4", "dt", "dd"): self.text.append("\n")
         if tag == "h1": self.in_h1 = False
         elif tag in ("td", "th") and self.cell is not None and self.row is not None:
             self.row.append(re.sub(r"\s+", " ", "".join(self.cell)).strip())
@@ -73,6 +76,7 @@ class Page(HTMLParser):
             self.row = None
         elif tag == "table" and self.stack: self.tables.append(self.stack.pop())
     def handle_data(self, d):
+        self.text.append(d)
         if self.cell is not None: self.cell.append(d)
         if self.in_h1: self.h1 += d
 
@@ -122,6 +126,21 @@ def parse(html, base=""):
                 break
     return liga, table, games, halls
 
+def address_from_text(lines):
+    """Sucht die Zeile 'Hallenadresse' und nimmt die folgenden Zeilen bis zur Postleitzahl."""
+    for i, ln in enumerate(lines):
+        if ln.lower().startswith("hallenadresse"):
+            rest = re.sub(r"^hallenadresse\s*:?\s*", "", ln, flags=re.I)
+            parts = ([rest] if rest else []) + lines[i + 1:i + 4]
+            out = []
+            for x in parts:
+                out.append(x)
+                if re.match(r"^\d{5}\b", x): break
+            else:
+                out = out[:2]
+            return ", ".join(out)
+    return ""
+
 def parse_hall(html):
     """Liest Hallenname und Adresse aus der nuLiga-Hallenseite (courtInfo). Format nicht getestet, daher grosszuegig."""
     p = Page(); p.feed(html)
@@ -133,9 +152,13 @@ def parse_hall(html):
     pick = lambda *keys: next((kv[k] for k in keys if k in kv), "")
     name = pick("name", "bezeichnung", "halle", "hallenname") or re.sub(r"\s+", " ", p.h1).strip()
     name = re.sub(r"\s*\(\d+\)\s*$", "", re.sub(r"\s*Hallenspielplan\s*$", "", name)).strip(" -")
-    street = pick("straße", "strasse", "adresse", "anschrift")
+    street = pick("straße", "strasse", "adresse", "hallenadresse", "anschrift")
     city = pick("plz/ort", "ort") or " ".join(x for x in (pick("plz"), pick("stadt")) if x)
-    return {"name": name, "address": ", ".join(x for x in (street, city) if x)}
+    address = ", ".join(x for x in (street, city) if x)
+    if not address:
+        lines = [re.sub(r"\s+", " ", l).strip() for l in "".join(p.text).split("\n")]
+        address = address_from_text([l for l in lines if l])
+    return {"name": name, "address": address}
 
 def resolve_halls(found, cache):
     """Holt pro Halle einmal Name und Adresse (erneuter Versuch fruehestens nach 7 Tagen)."""
@@ -146,8 +169,8 @@ def resolve_halls(found, cache):
         entry = {"nr": info["nr"], "name": old.get("name", ""), "address": old.get("address", ""), "tried": old.get("tried", "")}
         stale = not entry["tried"] or (today - datetime.date.fromisoformat(entry["tried"])).days >= 7
         entry["v"] = old.get("v", 0)
-        if not entry["name"] or entry["v"] != 2 or (not entry["address"] and stale):
-            entry["v"] = 2
+        if not entry["name"] or entry["v"] != 3 or (not entry["address"] and stale):
+            entry["v"] = 3
             html = fetch(info["url"]); entry["tried"] = today.isoformat()
             if html:
                 try: entry.update(parse_hall(html)); print("Halle", info["nr"], "->", entry["name"], "|", entry["address"])
@@ -158,7 +181,8 @@ def resolve_halls(found, cache):
 
 def hall_text(g, halls):
     h = halls.get(g.get("loc", ""), {})
-    if h.get("name"): return h["name"] + (", " + h["address"] if h.get("address") else "")
+    addr = re.sub(r"\s*;[^,]*", "", h.get("address", ""))
+    if h.get("name"): return h["name"] + (", " + addr if addr else "")
     return ("Halle " + g["hall"]) if g.get("hall") else ""
 
 def lsv_games(t):
