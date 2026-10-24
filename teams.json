@@ -3,7 +3,10 @@
   "name": "1. Männer",
   "url": "https://hvberlin-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?championship=HVBerlin+26%2F27&group=495134",
   "slug": "1-maenner",
-  "topic": "lsv-hb-1-maenner-sfi80n"
+  "topic": "lsv-hb-1-maenner-sfi80n",
+  "info": {
+   "foto": "fotos/1-maenner.jpg"
+  }
  },
  {
   "name": "2. Männer",
@@ -15,19 +18,28 @@
   "name": "3. Männer",
   "url": "https://hvberlin-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?championship=HVBerlin+26%2F27&group=495171",
   "slug": "3-maenner",
-  "topic": "lsv-hb-3-maenner-sfi80n"
+  "topic": "lsv-hb-3-maenner-sfi80n",
+  "info": {
+   "foto": "fotos/3-maenner.jpg"
+  }
  },
  {
   "name": "1. Frauen",
   "url": "https://hvberlin-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?championship=HVBerlin+26%2F27&group=495183",
   "slug": "1-frauen",
-  "topic": "lsv-hb-1-frauen-sfi80n"
+  "topic": "lsv-hb-1-frauen-sfi80n",
+  "info": {
+   "foto": "fotos/1-frauen.jpg"
+  }
  },
  {
   "name": "2. Frauen",
   "url": "https://hvberlin-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?championship=HVBerlin+26%2F27&group=495096",
   "slug": "2-frauen",
-  "topic": "lsv-hb-2-frauen-sfi80n"
+  "topic": "lsv-hb-2-frauen-sfi80n",
+  "info": {
+   "foto": "fotos/2-frauen.jpg"
+  }
  },
  {
   "name": "3. Frauen",
