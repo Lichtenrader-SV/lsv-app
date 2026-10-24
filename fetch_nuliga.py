@@ -20,12 +20,22 @@ def clean(s):
     s = re.sub(r"\[?(…|\.\.\.)\]?\s*$", "", re.sub(r"\s+", " ", s).strip()).strip()
     return s if len(s) <= 170 else s[:167].rsplit(" ", 1)[0] + "..."
 
+def news_image(x):
+    try:
+        m = x["_embedded"]["wp:featuredmedia"][0]
+        sizes = m.get("media_details", {}).get("sizes", {})
+        for k in ("medium_large", "large", "medium"):
+            if k in sizes: return sizes[k]["source_url"]
+        return m.get("source_url", "")
+    except Exception:
+        return ""
+
 def fetch_news(limit=5):
     """Holt die neuesten Meldungen von der Vereinsseite: zuerst WordPress-API, sonst RSS-Feed."""
     for path in ("/wp-json/wp/v2/posts", "/wp/wp-json/wp/v2/posts"):
-        raw = fetch(f"{SITE}{path}?per_page={limit}&_fields=link,title,excerpt,date")
+        raw = fetch(f"{SITE}{path}?per_page={limit}&_embed=wp:featuredmedia&_fields=link,title,excerpt,date,_embedded")
         try:
-            items = [{"t": clean(x["title"]["rendered"]), "p": clean(x["excerpt"]["rendered"]), "u": x["link"], "d": x["date"][:10]} for x in json.loads(raw)]
+            items = [{"t": clean(x["title"]["rendered"]), "p": clean(x["excerpt"]["rendered"]), "u": x["link"], "d": x["date"][:10], "img": news_image(x)} for x in json.loads(raw)]
             if items: return items
         except Exception: pass
     raw = fetch(SITE + "/feed/")
@@ -217,10 +227,11 @@ def write_calendars(teams, halls={}):
         with open(f"kalender/{t['slug']}.ics", "w", encoding="utf-8", newline="") as f:
             f.write("\r\n".join(lines) + "\r\n")
 
-def ntfy(topic, title, message, when):
-    body = json.dumps({"topic": topic, "title": title, "message": message, "tags": ["handball"],
-                       "delay": str(int(when.timestamp()))}).encode()
-    req = urllib.request.Request("https://ntfy.sh", data=body, headers={"Content-Type": "application/json", "User-Agent": UA})
+def ntfy(topic, title, message, when=None, click=None):
+    msg = {"topic": topic, "title": title, "message": message, "tags": ["handball"]}
+    if when: msg["delay"] = str(int(when.timestamp()))
+    if click: msg["click"] = click
+    req = urllib.request.Request("https://ntfy.sh", data=json.dumps(msg).encode(), headers={"Content-Type": "application/json", "User-Agent": UA})
     urllib.request.urlopen(req, timeout=30).read()
 
 def send_reminders(teams, halls={}):
@@ -247,6 +258,28 @@ def send_reminders(teams, halls={}):
                     print("  ntfy-Fehler:", e, file=sys.stderr)
     json.dump(sent, open("notified.json", "w", encoding="utf-8"), ensure_ascii=False, indent=0)
 
+def send_results(teams, now=None):
+    """Schickt eine Push-Nachricht, sobald ein Spiel des LSV ein Ergebnis hat (nur Spiele von gestern und heute)."""
+    try: sent = json.load(open("notified.json", encoding="utf-8"))
+    except Exception: sent = {}
+    now = now or datetime.datetime.now(TZ)
+    earliest = (now - datetime.timedelta(days=1)).date().isoformat()
+    for t in teams:
+        for g in lsv_games(t):
+            if not g["score"] or g["date"] < earliest: continue
+            key = "|".join([t["name"], g["date"], g["time"], g["home"], g["guest"], "ergebnis"])
+            if key in sent: continue
+            try: a, b = (int(x) for x in g["score"].split(":"))
+            except ValueError: continue
+            ours, theirs = (a, b) if LSV in g["home"] else (b, a)
+            word = "Sieg" if ours > theirs else "Niederlage" if ours < theirs else "Unentschieden"
+            try:
+                ntfy(t["topic"], "LSV " + t["name"], f"Endstand, {word}: {g['home']} {g['score']} {g['guest']}", click=t["url"])
+                sent[key] = now.isoformat(timespec="seconds"); print("Ergebnis gesendet:", key)
+            except Exception as e:
+                print("  ntfy-Fehler:", e, file=sys.stderr)
+    json.dump(sent, open("notified.json", "w", encoding="utf-8"), ensure_ascii=False, indent=0)
+
 def main():
     teams = json.load(open("teams.json", encoding="utf-8"))
     try: old = {t["name"]: t for t in json.load(open("data.json", encoding="utf-8"))["teams"]}
@@ -255,7 +288,7 @@ def main():
     for i, t in enumerate(teams):
         print("Lese", t["name"])
         html = fetch(t["url"])
-        entry = {"name": t["name"], "url": t["url"], "slug": t["slug"], "topic": t["topic"], "liga": "", "table": [], "games": []}
+        entry = {"name": t["name"], "url": t["url"], "slug": t["slug"], "topic": t["topic"], "info": t.get("info", {}), "liga": "", "table": [], "games": []}
         if html:
             liga, table, games, hs = parse(html, t["url"])
             found.update(hs)
@@ -281,5 +314,6 @@ def main():
     write_calendars(out, halls)
     if os.environ.get("SEND_REMINDERS") == "1":
         send_reminders(out, halls)
+        send_results(out)
 
 if __name__ == "__main__": main()
