@@ -5,39 +5,21 @@ CALSCALE:GREGORIAN
 X-WR-CALNAME:LSV mD-Jugend 2
 X-WR-TIMEZONE:Europe/Berlin
 BEGIN:VEVENT
-UID:md-jugend-2-ae788239efcb@lichtenrader-sv.de
-DTSTAMP:20261107T065215Z
-DTSTART:20261004T070000Z
-DTEND:20261004T083000Z
-SUMMARY:LSV mD-Jugend 2: Lichtenrader SV II - HC Pankow II
-LOCATION:Reinhold-Meyerhof-Schulsporthalle\, Zescher Straße 20-24\, 12307
+UID:md-jugend-2-aeade7824ace@lichtenrader-sv.de
+DTSTAMP:20261107T094457Z
+DTSTART:20261121T100000Z
+DTEND:20261121T113000Z
+SUMMARY:LSV mD-Jugend 2: BSG Fernsehelektronik IV - Lichtenrader SV II
+LOCATION:Sporthalle Meli-Beese-Grundschule\, Engelhardstraße 18\, 12487
 BEGIN:VALARM
 ACTION:DISPLAY
 TRIGGER:-P1D
-DESCRIPTION:Morgen: Lichtenrader SV II - HC Pankow II
+DESCRIPTION:Morgen: BSG Fernsehelektronik IV - Lichtenrader SV II
 END:VALARM
 BEGIN:VALARM
 ACTION:DISPLAY
 TRIGGER:-PT2H
-DESCRIPTION:In 2 Stunden: Lichtenrader SV II - HC Pankow II
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:md-jugend-2-6d87c8aa5376@lichtenrader-sv.de
-DTSTAMP:20261107T065215Z
-DTSTART:20261010T083000Z
-DTEND:20261010T100000Z
-SUMMARY:LSV mD-Jugend 2: Lichtenrader SV II - TSV Tempelhof-Mariendorf
-LOCATION:Reinhold-Meyerhof-Schulsporthalle\, Zescher Straße 20-24\, 12307
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-P1D
-DESCRIPTION:Morgen: Lichtenrader SV II - TSV Tempelhof-Mariendorf
-END:VALARM
-BEGIN:VALARM
-ACTION:DISPLAY
-TRIGGER:-PT2H
-DESCRIPTION:In 2 Stunden: Lichtenrader SV II - TSV Tempelhof-Mariendorf
+DESCRIPTION:In 2 Stunden: BSG Fernsehelektronik IV - Lichtenrader SV II
 END:VALARM
 END:VEVENT
 END:VCALENDAR
