@@ -28,3 +28,19 @@ Die App ist installierbar (Manifest, Icons, `sw.js`). Auf Android: Browsermenü 
 
 ## Schrift
 Überschriften: Anton (Slogan, Spieltag-Banner) und Antonio Bold (übrige Überschriften), Text: Systemschrift des Geräts (auf Apple-Geräten SF Pro). Die Schriftdateien liegen im Ordner `fonts/` und werden von der App selbst ausgeliefert, es gibt keine Verbindung zu Google. Benötigte Dateien: `Anton-Regular.ttf`, `Antonio-Regular.ttf`, `Antonio-Bold.ttf` (Download über fonts.google.com, Lizenz: Open Font License). Fehlen sie, nutzt die App eine Ersatzschrift.
+
+## Teams-Seite
+Die Seite „Teams“ gruppiert die Mannschaften (Männer, Frauen, männliche und weibliche Jugend) und zeigt Liga, Tabellenplatz und nächstes Spiel aus den nuLiga-Daten. Optional lassen sich pro Mannschaft Trainingszeit und Trainer anzeigen: in `teams.json` bei der Mannschaft ein Feld `"info"` ergänzen, zum Beispiel
+`{"name": "1. Männer", "url": "...", "slug": "...", "topic": "...", "info": {"training": "Di und Do, 20:00 bis 21:30 Uhr", "trainer": "Name"}}`
+Beim nächsten Workflow-Lauf erscheint es in der App.
+
+## Ergebnis-Push, Heimspiel-Extras, Fotos
+- **Ergebnis-Push:** Sobald nuLiga das Ergebnis eines Spiels zeigt, geht eine Nachricht an das Thema der Mannschaft („Endstand, Sieg: …“). Der Workflow läuft dafür alle 30 Minuten. Es werden nur Spiele von gestern und heute gemeldet, jedes Spiel nur einmal.
+- **Heimspiel-Extras:** Im Spieltag-Banner bei Heimspielen. Die Liste steht in `index.html` in der Variable `HOME_EXTRAS` und lässt sich dort anpassen.
+- **Bilder bei Meldungen:** Das Titelbild eines Beitrags auf lichtenrader-sv.de wird automatisch angezeigt. Es wird direkt von der Vereinsseite geladen.
+- **Teamfotos:** Fotos als `.jpg` (am besten unter 300 KB, Querformat 16:9) in den Ordner `fotos/` legen und in `teams.json` bei der Mannschaft unter `"info"` eintragen: `"foto": "fotos/1-maenner.jpg"`. Vorher die Einwilligung der Abgebildeten bzw. Eltern einholen.
+
+## Probetraining und Beachhandball
+
+- `#probetraining`: Formular, das eine fertige E-Mail an info@lichtenrader-sv.de im Mailprogramm öffnet (nichts wird über die App gespeichert oder gesendet). Altersgruppen stehen in `AGES` in der index.html.
+- `#beach`: Beachhandball-Seite. Termine pflegst du in `BEACH.termine` in der index.html, z. B. `{d:"12.07.2027",t:"Turnier in Berlin",o:"Ort"}`. Das Foto steht in `BEACH.foto`.
