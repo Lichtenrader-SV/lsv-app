@@ -184,7 +184,7 @@ var V={
   h+='<h3 style="font-size:22px;margin:22px 0 8px">Training</h3><div class="ok">';
   if(tl.length){h+=tl.map(function(x){var q=x.h?"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(x.h+(x.a?", "+x.a:", Berlin")):"";
     return '<div class="tn"><span>'+esc(x.d||"Training")+'</span><div>'+esc(x.t||"")+(x.t?" Uhr":"")+(x.h?'<br>'+esc(x.h):'')+(x.a?'<br><span class="meta">'+esc(x.a)+'</span>':'')+(q?'<br><a class="lnk" href="'+q+'" target="_blank" rel="noopener">Route anzeigen</a>':'')+'</div></div>'}).join("")}
-  else h+='<p style="margin:0">Die Trainingszeiten dieser Mannschaft tragen wir hier bald ein. Schreib uns gern an '+MAIL+'.</p>';
+  else h+='<p style="margin:0">Die Trainingszeiten dieser Mannschaft sind identisch zu den Trainingszeiten der 1. Mannschaft in dieser Altersklasse. Schreibe uns bei Rückfragen gerne an '+MAIL+'</p>';
   h+='</div>';
   if(tr)h+='<h3 style="font-size:22px;margin:22px 0 8px">Trainer</h3><div class="ok"><p style="margin:0">'+esc(tr)+'</p></div>';
   h+='<h3 style="font-size:22px;margin:22px 0 8px">Tabelle und Spiele</h3><div class="ok">';
