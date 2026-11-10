@@ -5,14 +5,44 @@
   "slug": "1-maenner",
   "topic": "lsv-hb-1-maenner-sfi80n",
   "info": {
-   "foto": "fotos/1-maenner.jpg"
+   "foto": "fotos/1-maenner.jpg",
+   "training": [
+    {
+     "d": "Montag",
+     "t": "20:00–21:30",
+     "h": "Solling-OS",
+     "a": "Alt-Marienfelde 52, 12277 Berlin"
+    },
+    {
+     "d": "Mittwoch",
+     "t": "20:00–22:00",
+     "h": "Reinhold-Meyerhof-Schulsporthalle (Eingang Briesingstraße)",
+     "a": "Zescher Straße 20-24, 12307 Berlin"
+    },
+    {
+     "d": "Donnerstag",
+     "t": "20:00–21:30",
+     "h": "Sporthalle Theodor-Haubach-Schule (neue Halle, Eingang Lutherstraße)",
+     "a": "Grimmstraße 9-11, 12305 Berlin"
+    }
+   ],
+   "trainer": [
+    "Stefan Krai",
+    "Jan-Eike Albrecht"
+   ]
   }
  },
  {
   "name": "2. Männer",
   "url": "https://hvberlin-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?championship=HVBerlin+26%2F27&group=495186",
   "slug": "2-maenner",
-  "topic": "lsv-hb-2-maenner-sfi80n"
+  "topic": "lsv-hb-2-maenner-sfi80n",
+  "info": {
+   "trainer": [
+    "Jan-Eike Albrecht",
+    "Stefan Krai"
+   ]
+  }
  },
  {
   "name": "3. Männer",
@@ -20,7 +50,18 @@
   "slug": "3-maenner",
   "topic": "lsv-hb-3-maenner-sfi80n",
   "info": {
-   "foto": "fotos/3-maenner.jpg"
+   "foto": "fotos/3-maenner.jpg",
+   "training": [
+    {
+     "d": "Donnerstag",
+     "t": "20:00–21:30",
+     "h": "Sporthalle Naharyia-Grundschule",
+     "a": "Naharyiastraße 17, 12309 Berlin"
+    }
+   ],
+   "trainer": [
+    "Jan-Eike Albrecht"
+   ]
   }
  },
  {
@@ -29,7 +70,24 @@
   "slug": "1-frauen",
   "topic": "lsv-hb-1-frauen-sfi80n",
   "info": {
-   "foto": "fotos/1-frauen.jpg"
+   "foto": "fotos/1-frauen.jpg",
+   "training": [
+    {
+     "d": "Dienstag",
+     "t": "20:00–21:30",
+     "h": "Friedrich-Ebert-Sporthalle",
+     "a": "Bosestraße 21, 12103 Berlin"
+    },
+    {
+     "d": "Freitag",
+     "t": "20:00–21:30",
+     "h": "Sporthalle Theodor-Haubach-Schule (neue Halle, Eingang Lutherstraße)",
+     "a": "Grimmstraße 9-11, 12305 Berlin"
+    }
+   ],
+   "trainer": [
+    "Kai Köhn"
+   ]
   }
  },
  {
@@ -38,79 +96,322 @@
   "slug": "2-frauen",
   "topic": "lsv-hb-2-frauen-sfi80n",
   "info": {
-   "foto": "fotos/2-frauen.jpg"
+   "foto": "fotos/2-frauen.jpg",
+   "training": [
+    {
+     "d": "Mittwoch",
+     "t": "20:00–21:30",
+     "h": "Sporthalle Carl-Zeiss-Oberschule (unten, Eingang Lutherstraße 30)",
+     "a": "Barnetstraße 12-14, 12305 Berlin"
+    },
+    {
+     "d": "Freitag",
+     "t": "20:00–21:30",
+     "h": "Sporthalle Naharyia-Grundschule",
+     "a": "Naharyiastraße 17, 12309 Berlin"
+    }
+   ],
+   "trainer": [
+    "Olaf Degen",
+    "Janis Wedewardt"
+   ]
   }
  },
  {
   "name": "3. Frauen",
   "url": "https://hvberlin-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?championship=HVBerlin+26%2F27&group=513733",
   "slug": "3-frauen",
-  "topic": "lsv-hb-3-frauen-sfi80n"
+  "topic": "lsv-hb-3-frauen-sfi80n",
+  "info": {
+   "training": [
+    {
+     "d": "Mittwoch",
+     "t": "20:00–21:00",
+     "h": "Sporthalle Carl-Zeiss-Oberschule (unten, Eingang Lutherstraße 30)",
+     "a": "Barnetstraße 12-14, 12305 Berlin"
+    }
+   ],
+   "trainer": [
+    "Janis Wedewardt"
+   ]
+  }
  },
  {
   "name": "mA-Jugend",
   "url": "https://hvberlin-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?targetFed=RLOS&championship=RLOS+26%2F27&group=497434",
   "slug": "ma-jugend",
-  "topic": "lsv-hb-ma-jugend-sfi80n"
+  "topic": "lsv-hb-ma-jugend-sfi80n",
+  "info": {
+   "training": [
+    {
+     "d": "Montag",
+     "t": "20:00–21:30",
+     "h": "Solling-OS",
+     "a": "Alt-Marienfelde 52, 12277 Berlin"
+    },
+    {
+     "d": "Mittwoch",
+     "t": "18:30–20:00",
+     "h": "Sporthalle Naharyia-Grundschule",
+     "a": "Naharyiastraße 17, 12309 Berlin"
+    },
+    {
+     "d": "Donnerstag",
+     "t": "18:30–20:00",
+     "h": "Sporthalle Theodor-Haubach-Schule (neue Halle, Eingang Lutherstraße)",
+     "a": "Grimmstraße 9-11, 12305 Berlin"
+    }
+   ],
+   "trainer": [
+    "Darius Krai"
+   ]
+  }
  },
  {
   "name": "wA-Jugend",
   "url": "https://hvberlin-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?championship=HVBerlin+26%2F27&group=495150",
   "slug": "wa-jugend",
-  "topic": "lsv-hb-wa-jugend-sfi80n"
+  "topic": "lsv-hb-wa-jugend-sfi80n",
+  "info": {
+   "training": [
+    {
+     "d": "Mittwoch",
+     "t": "17:00–18:30",
+     "h": "Sporthalle Naharyia-Grundschule",
+     "a": "Naharyiastraße 17, 12309 Berlin"
+    },
+    {
+     "d": "Donnerstag",
+     "t": "17:00–18:30",
+     "h": "Sporthalle Theodor-Haubach-Schule (neue Halle, Eingang Lutherstraße)",
+     "a": "Grimmstraße 9-11, 12305 Berlin"
+    },
+    {
+     "d": "Freitag",
+     "t": "20:00–21:30",
+     "h": "Sporthalle Naharyia-Grundschule",
+     "a": "Naharyiastraße 17, 12309 Berlin"
+    }
+   ],
+   "trainer": [
+    "Darius Krai"
+   ]
+  }
  },
  {
   "name": "mB-Jugend 1",
   "url": "https://hvberlin-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?championship=HVBerlin+26%2F27&group=495160",
   "slug": "mb-jugend-1",
-  "topic": "lsv-hb-mb-jugend-1-sfi80n"
+  "topic": "lsv-hb-mb-jugend-1-sfi80n",
+  "info": {
+   "training": [
+    {
+     "d": "Montag",
+     "t": "18:30–20:00",
+     "h": "Solling-OS",
+     "a": "Alt-Marienfelde 52, 12277 Berlin"
+    },
+    {
+     "d": "Mittwoch",
+     "t": "19:15–20:30",
+     "h": "Reinhold-Meyerhof-Schulsporthalle (Eingang Briesingstraße)",
+     "a": "Zescher Straße 20-24, 12307 Berlin"
+    },
+    {
+     "d": "Donnerstag",
+     "t": "18:30–20:00",
+     "h": "Sporthalle Naharyia-Grundschule",
+     "a": "Naharyiastraße 17, 12309 Berlin"
+    }
+   ],
+   "trainer": [
+    "Aaron Krai",
+    "Lara Hankel"
+   ]
+  }
  },
  {
   "name": "mB-Jugend 2",
   "url": "https://hvberlin-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?championship=HVBerlin+26%2F27&group=495135",
   "slug": "mb-jugend-2",
-  "topic": "lsv-hb-mb-jugend-2-sfi80n"
+  "topic": "lsv-hb-mb-jugend-2-sfi80n",
+  "info": {
+   "trainer": [
+    "Aaron Krai",
+    "Lara Hankel"
+   ]
+  }
  },
  {
   "name": "mB-Jugend 3",
   "url": "https://hvberlin-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?championship=HVBerlin+26%2F27&group=495123",
   "slug": "mb-jugend-3",
-  "topic": "lsv-hb-mb-jugend-3-sfi80n"
+  "topic": "lsv-hb-mb-jugend-3-sfi80n",
+  "info": {
+   "trainer": [
+    "Aaron Krai",
+    "Lara Hankel"
+   ]
+  }
  },
  {
   "name": "wB-Jugend",
   "url": "https://hvberlin-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?championship=HVBerlin+26%2F27&group=495136",
   "slug": "wb-jugend",
-  "topic": "lsv-hb-wb-jugend-sfi80n"
+  "topic": "lsv-hb-wb-jugend-sfi80n",
+  "info": {
+   "training": [
+    {
+     "d": "Dienstag",
+     "t": "18:30–20:00",
+     "h": "Sporthalle Carl-Zeiss-Oberschule (oben, Eingang Lutherstraße 30)",
+     "a": "Barnetstraße 12-14, 12305 Berlin"
+    },
+    {
+     "d": "Donnerstag",
+     "t": "17:00–18:30",
+     "h": "Sporthalle Theodor-Haubach-Schule (neue Halle, Eingang Lutherstraße)",
+     "a": "Grimmstraße 9-11, 12305 Berlin"
+    },
+    {
+     "d": "Freitag",
+     "t": "20:00–21:30",
+     "h": "Sporthalle Naharyia-Grundschule",
+     "a": "Naharyiastraße 17, 12309 Berlin"
+    }
+   ],
+   "trainer": [
+    "Darius Krai"
+   ]
+  }
  },
  {
   "name": "mC-Jugend 1",
   "url": "https://hvberlin-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?championship=HVBerlin+26%2F27&group=495094",
   "slug": "mc-jugend-1",
-  "topic": "lsv-hb-mc-jugend-1-sfi80n"
+  "topic": "lsv-hb-mc-jugend-1-sfi80n",
+  "info": {
+   "training": [
+    {
+     "d": "Montag",
+     "t": "17:00–18:30",
+     "h": "Solling-OS",
+     "a": "Alt-Marienfelde 52, 12277 Berlin"
+    },
+    {
+     "d": "Mittwoch",
+     "t": "18:00–19:15",
+     "h": "Reinhold-Meyerhof-Schulsporthalle (Eingang Briesingstraße)",
+     "a": "Zescher Straße 20-24, 12307 Berlin"
+    }
+   ],
+   "trainer": [
+    "Sebastian Limbach",
+    "Aaron Krai"
+   ]
+  }
  },
  {
   "name": "mC-Jugend 2",
   "url": "https://hvberlin-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?championship=HVBerlin+26%2F27&group=512673",
   "slug": "mc-jugend-2",
-  "topic": "lsv-hb-mc-jugend-2-sfi80n"
+  "topic": "lsv-hb-mc-jugend-2-sfi80n",
+  "info": {
+   "training": [
+    {
+     "d": "Montag",
+     "t": "17:00–18:30",
+     "h": "Solling-OS",
+     "a": "Alt-Marienfelde 52, 12277 Berlin"
+    },
+    {
+     "d": "Mittwoch",
+     "t": "18:00–19:15",
+     "h": "Reinhold-Meyerhof-Schulsporthalle (Eingang Briesingstraße)",
+     "a": "Zescher Straße 20-24, 12307 Berlin"
+    }
+   ],
+   "trainer": [
+    "Sebastian Limbach",
+    "Aaron Krai"
+   ]
+  }
  },
  {
   "name": "mD-Jugend 1",
   "url": "https://hvberlin-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?championship=HVBerlin+26%2F27&group=495106",
   "slug": "md-jugend-1",
-  "topic": "lsv-hb-md-jugend-1-sfi80n"
+  "topic": "lsv-hb-md-jugend-1-sfi80n",
+  "info": {
+   "training": [
+    {
+     "d": "Mittwoch",
+     "t": "17:30–19:00",
+     "h": "Reinhold-Meyerhof-Schulsporthalle (Eingang Briesingstraße)",
+     "a": "Zescher Straße 20-24, 12307 Berlin"
+    },
+    {
+     "d": "Donnerstag",
+     "t": "17:00–18:00",
+     "h": "Sporthalle Naharyia-Grundschule",
+     "a": "Naharyiastraße 17, 12309 Berlin"
+    }
+   ],
+   "trainer": [
+    "Stefan Krai",
+    "Jan-Eike Albrecht"
+   ]
+  }
  },
  {
   "name": "mD-Jugend 2",
   "url": "https://hvberlin-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?championship=HVBerlin+26%2F27&group=495126",
   "slug": "md-jugend-2",
-  "topic": "lsv-hb-md-jugend-2-sfi80n"
+  "topic": "lsv-hb-md-jugend-2-sfi80n",
+  "info": {
+   "training": [
+    {
+     "d": "Mittwoch",
+     "t": "18:00–19:00",
+     "h": "Reinhold-Meyerhof-Schulsporthalle (Eingang Briesingstraße)",
+     "a": "Zescher Straße 20-24, 12307 Berlin"
+    },
+    {
+     "d": "Donnerstag",
+     "t": "17:00–18:00",
+     "h": "Sporthalle Naharyia-Grundschule",
+     "a": "Naharyiastraße 17, 12309 Berlin"
+    }
+   ],
+   "trainer": [
+    "Jan-Eike Albrecht",
+    "Stefan Krai"
+   ]
+  }
  },
  {
   "name": "wD-Jugend",
   "url": "https://hvberlin-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?championship=HVBerlin+26%2F27&group=495151",
   "slug": "wd-jugend",
-  "topic": "lsv-hb-wd-jugend-sfi80n"
+  "topic": "lsv-hb-wd-jugend-sfi80n",
+  "info": {
+   "training": [
+    {
+     "d": "Mittwoch",
+     "t": "17:00–18:30",
+     "h": "Sporthalle Carl-Zeiss-Oberschule (oben, Eingang Lutherstraße 30)",
+     "a": "Barnetstraße 12-14, 12305 Berlin"
+    },
+    {
+     "d": "Freitag",
+     "t": "16:00–17:00",
+     "h": "Annedore-Leber-Grundschule",
+     "a": "Halker Zeile 147, 12305 Berlin"
+    }
+   ],
+   "trainer": [
+    "Nina Haspel"
+   ]
+  }
  }
 ]

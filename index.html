@@ -133,12 +133,17 @@ function about(){var lg=document.querySelector(".logo"),src=lg?lg.getAttribute("
  '<img class="pic" src="fotos/verein.jpg" alt="Alle Mannschaften des Lichtenrader SV beim gemeinsamen Teamfoto in der Halle" loading="lazy" onerror="this.remove()" style="margin-top:14px">'+'<div class="facts"><div><b>2020</b><span>gegründet</span></div><div><b>400</b><span>Mitglieder</span></div><div><b>21</b><span>Mannschaften</span></div><div><b>9</b><span>Kooperationskitas</span></div><div><b>5</b><span>Ballspielgruppen</span></div></div>'+
  '<p style="margin:14px 0 0"><b>Beachhandball auf Leistungsniveau:</b> Wir sind die einzige weibliche Beachhandballmannschaft in Berlin und Brandenburg. '+'<a class="lnk" href="#beach">Mehr zum Beachhandball</a>'+'</p></section>'}
 function grp(n){if(/Männer/.test(n))return "Männer";if(/Frauen/.test(n))return "Frauen";if(/^m.*Jugend/.test(n))return "Männliche Jugend";if(/^w.*Jugend/.test(n))return "Weibliche Jugend";return "Weitere"}
+function slugOf(t){return t.slug||String(t.name).toLowerCase().replace(/ä/g,"ae").replace(/ö/g,"oe").replace(/ü/g,"ue").replace(/ß/g,"ss").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")}
+function trainList(inf){var tr=inf.training;if(!tr)return [];if(typeof tr==="string")return [{d:"",t:tr,h:"",a:""}];return tr.filter(function(x){return x&&(x.d||x.t||x.h)})}
+function trainShort(inf){var l=trainList(inf);return l.map(function(x){return (x.d?x.d+" ":"")+(x.t||"")}).join(" · ")}
+function trainerText(inf){var tr=inf.trainer;if(!tr)return "";return Array.isArray(tr)?tr.join(", "):String(tr)}
+var teamSlug="";
 function teamCard(t,i){var s=split(lsv(t).map(function(g){return {g:g}})),nx=s.up[0],rk=null,fav=FAV.indexOf(t.name)>-1,inf=t.info||{};
  (t.table||[]).forEach(function(r){if(!rk&&isL(r.team))rk=r});
  var rank=(rk&&rk.games>0)?'<div class="tn"><span>Tabelle</span><div>Platz '+rk.rank+' von '+t.table.length+', '+esc(rk.points)+' Punkte</div></div>':'';
  var nxt='';if(nx){var g=nx.g,x=dtp(g),home=isL(g.home);nxt='<div class="tn"><span>Nächstes Spiel</span><div>'+x.w+', '+g.date.slice(8)+'.'+g.date.slice(5,7)+'., '+g.time+' Uhr<br>'+(home?'Heim gegen ':'Auswärts bei ')+esc(home?g.guest:g.home)+'</div></div>'}
- var ex=(inf.training?'<div class="tn"><span>Training</span><div>'+esc(inf.training)+'</div></div>':'')+(inf.trainer?'<div class="tn"><span>Trainer</span><div>'+esc(inf.trainer)+'</div></div>':'');
- return '<div class="tcard'+(fav?' fav':'')+'">'+(inf.foto?'<img class="timg" src="'+esc(inf.foto)+'" alt="Mannschaftsfoto '+esc(t.name)+'" loading="lazy" onerror="this.remove()">':'')+'<div class="th"><h3>'+esc(t.name)+'</h3><button class="star" data-fav="'+i+'" aria-pressed="'+fav+'" aria-label="'+esc(t.name)+(fav?' aus meinen Mannschaften entfernen':' als meine Mannschaft markieren')+'">'+(fav?'★':'☆')+'</button></div>'+(t.liga?'<div class="meta">'+esc(t.liga)+'</div>':'')+rank+nxt+ex+'<p style="margin:12px 0 0"><button class="go" data-go="'+i+'">Spiele und Tabelle</button></p></div>'}
+ var ex=(trainShort(inf)?'<div class="tn"><span>Training</span><div>'+esc(trainShort(inf))+'</div></div>':'')+(trainerText(inf)?'<div class="tn"><span>Trainer</span><div>'+esc(trainerText(inf))+'</div></div>':'');
+ return '<div class="tcard'+(fav?' fav':'')+'">'+(inf.foto?'<img class="timg" src="'+esc(inf.foto)+'" alt="Mannschaftsfoto '+esc(t.name)+'" loading="lazy" onerror="this.remove()">':'')+'<div class="th"><h3>'+esc(t.name)+'</h3><button class="star" data-fav="'+i+'" aria-pressed="'+fav+'" aria-label="'+esc(t.name)+(fav?' aus meinen Mannschaften entfernen':' als meine Mannschaft markieren')+'">'+(fav?'★':'☆')+'</button></div>'+(t.liga?'<div class="meta">'+esc(t.liga)+'</div>':'')+rank+nxt+ex+'<p style="margin:12px 0 0"><button class="go" data-go="'+i+'">Spiele und Tabelle</button> <a class="lnk" href="#team/'+esc(slugOf(t))+'" style="margin-left:10px">Mannschaftsseite</a></p></div>'}
 var LINKS=[["Präsidium","vorstand/"],["Beitragsordnung","beitragsordnung/"],["Vereinssatzung","vereinssatzung/"],["Club 100","club-100/"],["Förderverein","foerderverein/"],["Hallenmagazin Hirschruf","der-hirschruf-das-hallenmagazin-des-lichtenrader-sv/"],["Tor-Bingo","tor-bingo/"],["Hüpfburg-Verleih","huepfburg-verleih/"],["Jobs im Verein","der-lichtenrader-sportverein-e-v-dein-arbeitgeber-im-bereich-sport-und-gemeinschaft/"],["Kinderschutz","kinderschutz-im-lichtenrader-sportverein-e-v/"],["Kontakt","kontakt/"],["Impressum","impressum/"],["Datenschutz","datenschutzerklaerung/"]];
 var BEACH={foto:"https://lichtenrader-sv.de/app/uploads/2024/04/WhatsApp-Image-2024-08-23-at-12.21.14-e1724410496552.jpeg",termine:[],erfolge:[["2024","6. Platz bei der Deutschen Meisterschaft"],["2022","10. Platz bei der Deutschen Meisterschaft"]]};
 var AGES=["Ballspielgruppe / Kitagruppen","Minis","E-Jugend (ca. 9 bis 10 Jahre)","Jugend D (ca. 11 bis 12 Jahre)","Jugend C (ca. 13 bis 14 Jahre)","Jugend B (ca. 15 bis 16 Jahre)","Jugend A (ca. 17 bis 18 Jahre)","Frauen","Männer","Beachhandball","Weiß ich noch nicht"];
@@ -166,6 +171,30 @@ var V={
   order.filter(function(g){return by[g]}).map(function(g){return '<h2 class="grp">'+g+'</h2>'+by[g].join("")}).join("")+
   '<h2 class="grp">Weitere Angebote</h2><div class="tcard"><h3>Beachhandball</h3><div class="meta">Einzige Frauenmannschaft in Berlin und Brandenburg</div><p style="margin:10px 0 0"><a class="lnk" href="#beach">Mehr erfahren</a></p></div><div class="tcard"><h3>LSV Mini Gym</h3><p style="margin:10px 0 0">'+ext("mini-gym/","Mehr erfahren")+'</p></div>'},
 
+
+ team:function(){
+  var i=-1;DATA.teams.forEach(function(t,k){if(slugOf(t)===teamSlug)i=k});
+  if(i<0)return '<a class="lnk back" href="#teams">Zurück</a><p>Diese Mannschaft gibt es nicht.</p>';
+  var t=DATA.teams[i],inf=t.info||{},fav=FAV.indexOf(t.name)>-1,rk=null;
+  (t.table||[]).forEach(function(r){if(!rk&&isL(r.team))rk=r});
+  var tl=trainList(inf),tr=trainerText(inf),sp=split(lsv(t).map(function(g){return {g:g}})).up.slice(0,3);
+  var h='<a class="lnk back" href="#teams">Alle Teams</a>'+(inf.foto?'<img class="pic" src="'+esc(inf.foto)+'" alt="Mannschaftsfoto '+esc(t.name)+'" loading="lazy" onerror="this.remove()">':'')+
+   '<div class="th"><h2 style="margin:0">'+esc(t.name)+'</h2><button class="star" data-fav="'+i+'" aria-pressed="'+fav+'" aria-label="'+esc(t.name)+(fav?' aus meinen Mannschaften entfernen':' als meine Mannschaft markieren')+'">'+(fav?'★':'☆')+'</button></div>'+(t.liga?'<div class="meta">'+esc(t.liga)+'</div>':'')+
+   (inf.text?'<p style="margin:12px 0 0">'+esc(inf.text)+'</p>':'');
+  h+='<h3 style="font-size:22px;margin:22px 0 8px">Training</h3><div class="ok">';
+  if(tl.length){h+=tl.map(function(x){var q=x.h?"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(x.h+(x.a?", "+x.a:", Berlin")):"";
+    return '<div class="tn"><span>'+esc(x.d||"Training")+'</span><div>'+esc(x.t||"")+(x.t?" Uhr":"")+(x.h?'<br>'+esc(x.h):'')+(x.a?'<br><span class="meta">'+esc(x.a)+'</span>':'')+(q?'<br><a class="lnk" href="'+q+'" target="_blank" rel="noopener">Route anzeigen</a>':'')+'</div></div>'}).join("")}
+  else h+='<p style="margin:0">Die Trainingszeiten dieser Mannschaft tragen wir hier bald ein. Schreib uns gern an '+MAIL+'.</p>';
+  h+='</div>';
+  if(tr)h+='<h3 style="font-size:22px;margin:22px 0 8px">Trainer</h3><div class="ok"><p style="margin:0">'+esc(tr)+'</p></div>';
+  h+='<h3 style="font-size:22px;margin:22px 0 8px">Tabelle und Spiele</h3><div class="ok">';
+  if(rk&&rk.games>0)h+='<div class="tn"><span>Tabelle</span><div>Platz '+rk.rank+' von '+t.table.length+', '+esc(rk.points)+' Punkte</div></div>';
+  if(sp.length)h+=sp.map(function(o){var g=o.g,x=dtp(g),home=isL(g.home),H=hallInfo(g);return '<div class="tn"><span>'+x.w+', '+g.date.slice(8)+'.'+g.date.slice(5,7)+'.</span><div>'+g.time+' Uhr, '+(home?'Heim gegen ':'Auswärts bei ')+esc(home?g.guest:g.home)+(H?'<br><span class="meta">'+esc(H.label)+'</span>':'')+'</div></div>'}).join("");
+  else h+='<p style="margin:0 0 6px">Aktuell sind keine weiteren Spiele angesetzt.</p>';
+  h+='<p style="margin:12px 0 0"><button class="go" data-go="'+i+'">Alle Spiele und Tabelle</button></p></div>';
+  h+=remind(t);
+  h+='<h3 style="font-size:22px;margin:22px 0 8px">Mitmachen</h3><div class="ok"><p style="margin:0 0 10px">Du willst bei dieser Mannschaft reinschnuppern?</p><a class="btn" href="#probetraining">Probetraining anfragen</a></div>';
+  return h},
  probetraining:function(){
   return '<a class="lnk back" href="#verein">Zurück</a><h2>Probetraining anfragen</h2><p style="margin:0 0 6px">Du willst Handball ausprobieren? Schreib uns kurz, wer du bist und für welche Altersgruppe. Wir melden uns und sagen dir, wann und wo du vorbeikommen kannst.</p>'+
   '<form id="pt" class="ok" novalidate><label class="f" for="pt-name" style="margin-top:0">Name des Kindes bzw. dein Name</label><input id="pt-name" name="name" autocomplete="name" required>'+
@@ -194,7 +223,7 @@ var V={
   '<section><h2>Hirschruf</h2><div class="sparte"><p style="margin:0">Das Hallenmagazin des LSV mit Berichten, Terminen und Geschichten aus den Teams.</p><p style="margin:10px 0 0">'+ext("der-hirschruf-das-hallenmagazin-des-lichtenrader-sv/","Magazin ansehen")+'</p></div></section>'+
   '<p class="meta" style="margin:22px 0 0">Diese App speichert deine Auswahl (Meine Mannschaften) nur auf deinem Gerät und sendet keine Daten an den Verein. Beim Öffnen externer Links (nuLiga, ntfy, Google Maps) gelten deren Datenschutzbestimmungen. Die App wird über GitHub Pages ausgeliefert. Alle Einzelheiten stehen in unserer '+ext("datenschutzerklaerung/","Datenschutzerklärung")+'.</p><div class="legal">'+legal.map(function(l){return ext(l[1],l[0],"")}).join("")+'</div>'}
 };
-var NAVMAP={probetraining:"verein",beach:"teams"};
+var NAVMAP={probetraining:"verein",beach:"teams",team:"teams"};
 // Anonyme Zählung mit GoatCounter (ohne Cookies). Ausgeschaltet, solange STATS_CODE leer ist.
 var STATS_CODE="";
 var statsReady=false;
@@ -209,9 +238,9 @@ function trackStart(){
  try{var sa=(window.matchMedia&&matchMedia("(display-mode: standalone)").matches)||window.navigator.standalone===true;
   if(sa&&!sessionStorage.getItem("lsv-stat")){sessionStorage.setItem("lsv-stat","1");track("app-start-homescreen",true,"App vom Homescreen gestartet")}}catch(e){}
 }
-function render(keep){var t=(location.hash||"#start").slice(1);if(!V[t])t="start";
+function render(keep){var hs=(location.hash||"#start").slice(1).split("/"),t=hs[0];teamSlug=hs[1]||"";if(!V[t])t="start";
  var y=window.scrollY;document.getElementById("view").innerHTML=V[t]();
- document.querySelectorAll("nav a").forEach(function(a){if(a.dataset.t===(NAVMAP[t]||t))a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});window.scrollTo(0,keep?y:0);if(!keep)track("/"+t,false,t)}
+ document.querySelectorAll("nav a").forEach(function(a){if(a.dataset.t===(NAVMAP[t]||t))a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});window.scrollTo(0,keep?y:0);if(!keep)track("/"+t+(t==="team"?"/"+teamSlug:""),false,t)}
 document.addEventListener("click",function(ev){var b=ev.target.closest("button");if(!b)return;
  if(b.dataset.t!==undefined){team=+b.dataset.t;render(true)}
  else if(b.dataset.go!==undefined){team=+b.dataset.go;location.hash="#spiele"}
