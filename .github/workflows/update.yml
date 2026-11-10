@@ -1,8 +1,8 @@
 name: nuLiga-Daten aktualisieren
 on:
   schedule:
-    - cron: "0 */3 * * *"
-  workflow_dispatch: {}
+    - cron: "*/30 * * * *"   # alle 30 Minuten
+  workflow_dispatch: {}      # zusaetzlich per Knopfdruck
 permissions:
   contents: write
 jobs:
