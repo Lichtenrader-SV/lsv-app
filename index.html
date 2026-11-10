@@ -141,7 +141,7 @@ function teamCard(t,i){var s=split(lsv(t).map(function(g){return {g:g}})),nx=s.u
  return '<div class="tcard'+(fav?' fav':'')+'">'+(inf.foto?'<img class="timg" src="'+esc(inf.foto)+'" alt="Mannschaftsfoto '+esc(t.name)+'" loading="lazy" onerror="this.remove()">':'')+'<div class="th"><h3>'+esc(t.name)+'</h3><button class="star" data-fav="'+i+'" aria-pressed="'+fav+'" aria-label="'+esc(t.name)+(fav?' aus meinen Mannschaften entfernen':' als meine Mannschaft markieren')+'">'+(fav?'★':'☆')+'</button></div>'+(t.liga?'<div class="meta">'+esc(t.liga)+'</div>':'')+rank+nxt+ex+'<p style="margin:12px 0 0"><button class="go" data-go="'+i+'">Spiele und Tabelle</button></p></div>'}
 var LINKS=[["Präsidium","vorstand/"],["Beitragsordnung","beitragsordnung/"],["Vereinssatzung","vereinssatzung/"],["Club 100","club-100/"],["Förderverein","foerderverein/"],["Hallenmagazin Hirschruf","der-hirschruf-das-hallenmagazin-des-lichtenrader-sv/"],["Tor-Bingo","tor-bingo/"],["Hüpfburg-Verleih","huepfburg-verleih/"],["Jobs im Verein","der-lichtenrader-sportverein-e-v-dein-arbeitgeber-im-bereich-sport-und-gemeinschaft/"],["Kinderschutz","kinderschutz-im-lichtenrader-sportverein-e-v/"],["Kontakt","kontakt/"],["Impressum","impressum/"],["Datenschutz","datenschutzerklaerung/"]];
 var BEACH={foto:"https://lichtenrader-sv.de/app/uploads/2024/04/WhatsApp-Image-2024-08-23-at-12.21.14-e1724410496552.jpeg",termine:[],erfolge:[["2024","6. Platz bei der Deutschen Meisterschaft"],["2022","10. Platz bei der Deutschen Meisterschaft"]]};
-var AGES=["Ballspielgruppe / Minis (Kita-Alter)","Jugend D (ca. 9 bis 11 Jahre)","Jugend C (ca. 12 bis 13 Jahre)","Jugend B (ca. 14 bis 15 Jahre)","Jugend A (ca. 16 bis 18 Jahre)","Frauen","Männer","Beachhandball","Weiß ich noch nicht"];
+var AGES=["Ballspielgruppe / Kitagruppen","Minis","E-Jugend (ca. 9 bis 10 Jahre)","Jugend D (ca. 11 bis 12 Jahre)","Jugend C (ca. 13 bis 14 Jahre)","Jugend B (ca. 15 bis 16 Jahre)","Jugend A (ca. 17 bis 18 Jahre)","Frauen","Männer","Beachhandball","Weiß ich noch nicht"];
 var MAIL="info@lichtenrader-sv.de";
 function mailBody(f){return "Hallo LSV,\n\nich möchte gern ein Probetraining ausmachen.\n\nName: "+f.name+"\nAlter / Geburtsjahr: "+f.age+"\nAltersgruppe: "+f.grp+"\nErreichbar unter: "+f.kon+(f.msg?"\n\nNachricht: "+f.msg:"")+"\n\nViele Grüße"}
 function readForm(fm){return {name:fm.elements.name.value.trim(),age:fm.elements.age.value.trim(),grp:fm.elements.grp.value,kon:fm.elements.kon.value.trim(),msg:fm.elements.msg.value.trim()}}
@@ -195,9 +195,23 @@ var V={
   '<p class="meta" style="margin:22px 0 0">Diese App speichert deine Auswahl (Meine Mannschaften) nur auf deinem Gerät und sendet keine Daten an den Verein. Beim Öffnen externer Links (nuLiga, ntfy, Google Maps) gelten deren Datenschutzbestimmungen. Die App wird über GitHub Pages ausgeliefert. Alle Einzelheiten stehen in unserer '+ext("datenschutzerklaerung/","Datenschutzerklärung")+'.</p><div class="legal">'+legal.map(function(l){return ext(l[1],l[0],"")}).join("")+'</div>'}
 };
 var NAVMAP={probetraining:"verein",beach:"teams"};
+// Anonyme Zählung mit GoatCounter (ohne Cookies). Ausgeschaltet, solange STATS_CODE leer ist.
+var STATS_CODE="";
+var statsReady=false;
+function track(path,isEvent,title){
+ if(!STATS_CODE)return;
+ try{
+  if(!statsReady){statsReady=true;var sc=document.createElement("script");sc.async=true;sc.src="https://gc.zgo.at/count.js";sc.setAttribute("data-goatcounter","https://"+STATS_CODE+".goatcounter.com/count");sc.setAttribute("data-goatcounter-settings",'{"no_onload":true}');document.head.appendChild(sc)}
+  var go=function(n){if(window.goatcounter&&window.goatcounter.count){window.goatcounter.count({path:path,title:title||path,event:!!isEvent})}else if(n<40){setTimeout(function(){go(n+1)},250)}};go(0)
+ }catch(e){}
+}
+function trackStart(){
+ try{var sa=(window.matchMedia&&matchMedia("(display-mode: standalone)").matches)||window.navigator.standalone===true;
+  if(sa&&!sessionStorage.getItem("lsv-stat")){sessionStorage.setItem("lsv-stat","1");track("app-start-homescreen",true,"App vom Homescreen gestartet")}}catch(e){}
+}
 function render(keep){var t=(location.hash||"#start").slice(1);if(!V[t])t="start";
  var y=window.scrollY;document.getElementById("view").innerHTML=V[t]();
- document.querySelectorAll("nav a").forEach(function(a){if(a.dataset.t===(NAVMAP[t]||t))a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});window.scrollTo(0,keep?y:0)}
+ document.querySelectorAll("nav a").forEach(function(a){if(a.dataset.t===(NAVMAP[t]||t))a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});window.scrollTo(0,keep?y:0);if(!keep)track("/"+t,false,t)}
 document.addEventListener("click",function(ev){var b=ev.target.closest("button");if(!b)return;
  if(b.dataset.t!==undefined){team=+b.dataset.t;render(true)}
  else if(b.dataset.go!==undefined){team=+b.dataset.go;location.hash="#spiele"}
@@ -209,6 +223,7 @@ document.addEventListener("submit",function(ev){var fm=ev.target;if(fm.id!=="pt"
 document.addEventListener("click",function(ev){var b=ev.target.closest("button[data-copy]");if(!b)return;var f=readForm(document.getElementById("pt")),t=mailBody(f);
  try{navigator.clipboard.writeText(t).then(function(){b.textContent="Kopiert"},function(){b.textContent="Nicht möglich"})}catch(e){b.textContent="Nicht möglich"}});
 try{if("serviceWorker" in navigator&&location.protocol==="https:")navigator.serviceWorker.register("sw.js").catch(function(){})}catch(e){}
+trackStart();
 window.addEventListener("hashchange",function(){render(false)});
 render(false);
 try{fetch("data.json?"+Date.now()).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){if(j&&j.teams&&j.teams.length){DATA=j;live=true;team=Math.min(team,j.teams.length-1);render(true)}}).catch(function(){})}catch(e){}
