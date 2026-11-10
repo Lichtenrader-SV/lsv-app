@@ -280,6 +280,84 @@ def send_results(teams, now=None):
                 print("  ntfy-Fehler:", e, file=sys.stderr)
     json.dump(sent, open("notified.json", "w", encoding="utf-8"), ensure_ascii=False, indent=0)
 
+# ---- Trainingszeiten/Trainer von der Vereinswebseite ----
+WEB = "https://lichtenrader-sv.de/teams/%s/"
+WEBSLUG = {"ma-jugend": "jugend-a", "wa-jugend": "jugend-a-weiblich", "mb-jugend-1": "jugend-b1",
+           "mb-jugend-2": "jugend-b-2-maennlich", "mb-jugend-3": "maennlich-b-jugend-3",
+           "wb-jugend": "weibliche-b-jugend", "mc-jugend-1": "jugend-c", "mc-jugend-2": "jugend-c-ii",
+           "md-jugend-1": "jugend-d-1", "md-jugend-2": "jugend-d-3", "wd-jugend": None}
+DAYS = "Montag|Dienstag|Mittwoch|Donnerstag|Freitag|Samstag|Sonntag"
+
+class LineParser(HTMLParser):
+    """Seite -> Textzeilen; Links werden als 'Text\x00href' mitgefuehrt."""
+    BLOCK = {"p","div","li","br","h1","h2","h3","h4","h5","h6","tr","section","ul","ol","article"}
+    def __init__(self):
+        super().__init__(); self.lines=[]; self.cur=""; self.href=None; self.skip=0
+    def flush(self):
+        if self.cur.strip(): self.lines.append(self.cur.strip())
+        self.cur=""
+    def handle_starttag(self, tag, a):
+        if tag in ("script","style","noscript"): self.skip += 1
+        if tag in self.BLOCK: self.flush()
+        if tag == "a": self.href = dict(a).get("href")
+    def handle_endtag(self, tag):
+        if tag in ("script","style","noscript"): self.skip = max(0, self.skip-1)
+        if tag == "a" and self.href:
+            if "maps" in self.href: self.cur += "\x00" + self.href
+            self.href = None
+        if tag in self.BLOCK: self.flush()
+    def handle_data(self, d):
+        if not self.skip: self.cur += re.sub(r"\s+", " ", d)
+    def close(self):
+        super().close(); self.flush()
+
+def addr_from_maps(href, name=""):
+    from urllib.parse import unquote
+    q = href.split("q=", 1)[-1] if "q=" in href else ""
+    parts = [unquote(x).strip() for x in q.split("+")]
+    plz = next((re.search(r"\d{5}", x).group(0) for x in parts[1:] if re.search(r"\d{5}", x)), "")
+    if len(parts) < 3 or not plz: return ""
+    street = re.sub(r"\(.*?\)", "", parts[1]).strip(" ,")
+    return f"{street}, {plz} Berlin" if street else ""
+
+def parse_team_page(html):
+    p = LineParser(); p.feed(html); p.close()
+    L = p.lines; train, trainer = [], []
+    for i, ln in enumerate(L):
+        m = re.match(r"^(%s)\s*,?\s*(\d{1,2})[:.](\d{2})\s*(?:-|–|bis)\s*(\d{1,2})[:.](\d{2})" % DAYS, ln)
+        if not m: continue
+        hall, href = "", ""
+        if i + 1 < len(L) and not re.match(r"^(%s)\b" % DAYS, L[i+1]):
+            hall, _, href = L[i+1].partition("\x00")
+        hall = hall.strip()
+        if hall.lower().startswith("trainer"): hall = ""
+        e = {"d": m.group(1), "t": f"{int(m.group(2)):02d}:{m.group(3)}–{int(m.group(4)):02d}:{m.group(5)}", "h": hall}
+        a = addr_from_maps(href, hall) if href else ""
+        if a: e["a"] = a
+        train.append(e)
+    for i, ln in enumerate(L):
+        if re.match(r"^Trainer(in|innen)?\s*:?$", ln, re.I):
+            for x in L[i+1:i+6]:
+                if re.match(r"^(Trainingszeit|%s)" % DAYS, x) or "\x00" in x: break
+                if 3 < len(x) < 60 and re.match(r"^[A-ZÄÖÜ][\w\-\.äöüßÄÖÜ ]+$", x): trainer.append(x)
+            break
+    return train, trainer
+
+def web_info(t, known):
+    """Gibt (training, trainer) von der Webseite zurueck oder None."""
+    ws = t.get("web", WEBSLUG.get(t["slug"], t["slug"].replace("-maenner","-maenner")))
+    if not ws: return None
+    html = fetch(WEB % ws)
+    if not html: return None
+    train, trainer = parse_team_page(html)
+    # bekannte Hallenadressen aus teams.json uebernehmen, wenn der Link keine liefert
+    for e in train:
+        if "a" not in e:
+            for k in known:
+                if k.get("h","").split(" (")[0].startswith(e["h"].split(" (")[0]) and e["h"]: e["a"] = k.get("a",""); break
+            e.setdefault("a", "")
+    return train, trainer
+
 def main():
     teams = json.load(open("teams.json", encoding="utf-8"))
     try: old = {t["name"]: t for t in json.load(open("data.json", encoding="utf-8"))["teams"]}
@@ -288,7 +366,15 @@ def main():
     for i, t in enumerate(teams):
         print("Lese", t["name"])
         html = fetch(t["url"])
-        entry = {"name": t["name"], "url": t["url"], "slug": t["slug"], "topic": t["topic"], "info": t.get("info", {}), "liga": "", "table": [], "games": []}
+        info = json.loads(json.dumps(t.get("info", {})))
+        try:
+            w = web_info(t, info.get("training") if isinstance(info.get("training"), list) else [])
+            if w and w[0]:
+                info["training"] = w[0]; print("  Web: %d Trainingszeiten" % len(w[0]))
+                if w[1]: info["trainer"] = w[1]
+            elif w is not None: print("  Web: nichts erkannt, teams.json bleibt")
+        except Exception as e: print("  Web-Fehler:", e, file=sys.stderr)
+        entry = {"name": t["name"], "url": t["url"], "slug": t["slug"], "topic": t["topic"], "info": info, "liga": "", "table": [], "games": []}
         if html:
             liga, table, games, hs = parse(html, t["url"])
             found.update(hs)
