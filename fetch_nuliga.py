@@ -358,6 +358,33 @@ def web_info(t, known):
             e.setdefault("a", "")
     return train, trainer
 
+# ---- Partner-Logos von lichtenrader-sv.de/partner/ ----
+def link_key(u):
+    u = re.sub(r"^https?://(www\.)?", "", (u or "").strip().lower())
+    return u.rstrip("/")
+
+class LogoParser(HTMLParser):
+    def __init__(self, base):
+        super().__init__(); self.base = base; self.href = None; self.img = None; self.out = {}
+    def handle_starttag(self, tag, a):
+        a = dict(a)
+        if tag == "a" and a.get("href"): self.href = a["href"]; self.img = None
+        elif tag in ("img", "source") and self.href and not self.img:
+            c = [a.get("src"), a.get("data-src"), a.get("data-lazy-src"), (a.get("srcset") or a.get("data-srcset") or "").split(",")[0].split(" ")[0]]
+            c = [x for x in c if x and not x.startswith("data:")]
+            if c: self.img = urljoin(self.base, c[0])
+    def handle_endtag(self, tag):
+        if tag == "a":
+            if self.href and self.img and "lichtenrader-sv.de" not in self.href and self.href.startswith("http"):
+                self.out.setdefault(link_key(self.href), self.img)
+            self.href = None; self.img = None
+
+def fetch_partner_logos():
+    html = fetch("https://lichtenrader-sv.de/partner/")
+    if not html: return None
+    p = LogoParser("https://lichtenrader-sv.de/partner/"); p.feed(html)
+    return p.out
+
 def main():
     teams = json.load(open("teams.json", encoding="utf-8"))
     try: old = {t["name"]: t for t in json.load(open("data.json", encoding="utf-8"))["teams"]}
@@ -369,10 +396,11 @@ def main():
         info = json.loads(json.dumps(t.get("info", {})))
         try:
             w = web_info(t, info.get("training") if isinstance(info.get("training"), list) else [])
-            if w and w[0]:
-                info["training"] = w[0]; print("  Web: %d Trainingszeiten" % len(w[0]))
+            if w:
+                if w[0]: info["training"] = w[0]
                 if w[1]: info["trainer"] = w[1]
-            elif w is not None: print("  Web: nichts erkannt, teams.json bleibt")
+                print("  Web: %d Trainingszeiten, %d Trainer" % (len(w[0]), len(w[1])))
+                if not w[0] and not w[1]: print("  Web: nichts erkannt, teams.json bleibt")
         except Exception as e: print("  Web-Fehler:", e, file=sys.stderr)
         entry = {"name": t["name"], "url": t["url"], "slug": t["slug"], "topic": t["topic"], "info": info, "liga": "", "table": [], "games": []}
         if html:
@@ -390,12 +418,16 @@ def main():
     halls = resolve_halls({k: v for k, v in found.items() if k in used}, prev.get("halls", {}))
     if not found: halls = prev.get("halls", {})
     news = fetch_news() or prev.get("news", [])
+    try: pl = fetch_partner_logos()
+    except Exception as e: print("  Partner-Fehler:", e, file=sys.stderr); pl = None
+    plogos = pl if pl else prev.get("partnerLogos", {})
+    print(len(plogos), "Partner-Logos")
     print(len(news), "Meldungen")
-    if prev.get("teams") == out and prev.get("halls") == halls and prev.get("news") == news:
+    if prev.get("teams") == out and prev.get("halls") == halls and prev.get("news") == news and prev.get("partnerLogos", {}) == plogos:
         print("Keine Aenderungen an den Daten.")
     else:
         now = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-        json.dump({"updated": now, "teams": out, "halls": halls, "news": news}, open("data.json", "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
+        json.dump({"updated": now, "teams": out, "halls": halls, "news": news, "partnerLogos": plogos}, open("data.json", "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
         print("data.json geschrieben.")
     write_calendars(out, halls)
     if os.environ.get("SEND_REMINDERS") == "1":
