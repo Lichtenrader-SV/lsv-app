@@ -335,11 +335,13 @@ def parse_team_page(html):
         a = addr_from_maps(href, hall) if href else ""
         if a: e["a"] = a
         train.append(e)
+    STOP = re.compile(r"tabelle|spiel|ergebnis|liga|platz|punkt|n\u00e4chst|letzt|aktuell|termin|training|kontakt|mannschaft|team|saison|news|beitrag|tore|datum|uhr", re.I)
+    NAME = re.compile(r"^[A-Z\u00c4\u00d6\u00dc][A-Za-z\u00e4\u00f6\u00fc\u00df\u00c4\u00d6\u00dc\u00e9\u00e8'\-\.]*( [A-Z\u00c4\u00d6\u00dc][A-Za-z\u00e4\u00f6\u00fc\u00df\u00c4\u00d6\u00dc\u00e9\u00e8'\-\.]*){0,3}$")
     for i, ln in enumerate(L):
         if re.match(r"^Trainer(in|innen)?\s*:?$", ln, re.I):
-            for x in L[i+1:i+6]:
-                if re.match(r"^(Trainingszeit|%s)" % DAYS, x) or "\x00" in x: break
-                if 3 < len(x) < 60 and re.match(r"^[A-ZÄÖÜ][\w\-\.äöüßÄÖÜ ]+$", x): trainer.append(x)
+            for x in L[i+1:i+7]:
+                if "\x00" in x or STOP.search(x) or re.match(r"^(%s)" % DAYS, x) or not NAME.match(x) or len(x) > 40 or re.search(r"\b[A-Z\u00c4\u00d6\u00dc]{2,}\b", x) or len(trainer) >= 4: break
+                trainer.append(x)
             break
     return train, trainer
 
