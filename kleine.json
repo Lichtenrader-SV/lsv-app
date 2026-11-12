@@ -1,0 +1,192 @@
+[
+ {
+  "name": "E-Jugend 1",
+  "slug": "e-jugend-1",
+  "web": "jugend-e-1",
+  "liga": "Oberliga",
+  "info": {
+   "training": [
+    {
+     "d": "Dienstag",
+     "t": "16:00–17:00",
+     "h": "Grundschule am Dielingsgrund",
+     "a": "Dielingsgrund 35, 12305 Berlin"
+    },
+    {
+     "d": "Donnerstag",
+     "t": "17:00–18:00",
+     "h": "Sporthalle Naharyia-Grundschule",
+     "a": "Naharyiastraße 17, 12309 Berlin"
+    }
+   ],
+   "trainer": [
+    "Lara Krai",
+    "Wilma Bergt",
+    "Nina Haspel"
+   ]
+  },
+  "turniere": [
+   {
+    "date": "2026-11-08",
+    "t": "09:00–12:00",
+    "h": "Sporthalle Theodor-Haubach-Schule (neue Halle, Eingang Lutherstraße)",
+    "a": "Grimmstraße 9-11, 12305 Berlin"
+   }
+  ]
+ },
+ {
+  "name": "E-Jugend 2",
+  "slug": "e-jugend-2",
+  "web": "jugend-e-2",
+  "liga": "Bezirksoberliga B",
+  "info": {
+   "trainer": [
+    "Nina Haspel",
+    "Lara Krai",
+    "Wilma Bergt"
+   ]
+  },
+  "turniere": [
+   {
+    "date": "2026-10-03",
+    "t": "09:00–12:00",
+    "h": "Sporthalle Theodor-Haubach-Schule (neue Halle, Eingang Lutherstraße)",
+    "a": "Grimmstraße 9-11, 12305 Berlin"
+   },
+   {
+    "date": "2026-12-06",
+    "t": "10:00–13:00",
+    "h": "Sporthalle Theodor-Haubach-Schule (neue Halle, Eingang Lutherstraße)",
+    "a": "Grimmstraße 9-11, 12305 Berlin"
+   }
+  ]
+ },
+ {
+  "name": "Minis 1",
+  "slug": "minis-1",
+  "web": "jugend-f",
+  "liga": "Verbandsliga",
+  "info": {
+   "training": [
+    {
+     "d": "Mittwoch",
+     "t": "16:00–17:00",
+     "h": "Marienfelder Grundschule",
+     "a": "Erbendorfer Weg 13, 12279 Berlin"
+    },
+    {
+     "d": "Donnerstag",
+     "t": "16:00–17:00",
+     "h": "Sporthalle Naharyia-Grundschule",
+     "a": "Naharyiastraße 17, 12309 Berlin"
+    }
+   ],
+   "trainer": [
+    "Jacqueline Mularski",
+    "Pascal Pigeon",
+    "Max Kruse",
+    "Emilia Hoffmann"
+   ]
+  },
+  "turniere": [
+   {
+    "date": "2026-09-27",
+    "t": "09:00–12:00",
+    "h": "Sporthalle Theodor-Haubach-Schule (neue Halle, Eingang Lutherstraße)",
+    "a": "Grimmstraße 9-11, 12305 Berlin"
+   },
+   {
+    "date": "2026-12-12",
+    "t": "13:00–16:00",
+    "h": "Sporthalle Carl-Zeiss-Oberschule (unten, Eingang Lutherstraße)",
+    "a": "Barnetstraße 12-14, 12305 Berlin"
+   }
+  ]
+ },
+ {
+  "name": "Minis 2",
+  "slug": "minis-2",
+  "web": "jugend-f-ii",
+  "liga": "Landesliga",
+  "info": {
+   "trainer": [
+    "Jacqueline Mularski",
+    "Pascal Pigeon",
+    "Max Kruse",
+    "Emilia Hoffmann"
+   ]
+  },
+  "turniere": [
+   {
+    "date": "2026-12-12",
+    "t": "09:00–12:00",
+    "h": "Sporthalle Theodor-Haubach-Schule (neue Halle, Eingang Lutherstraße)",
+    "a": "Grimmstraße 9-11, 12305 Berlin"
+   }
+  ]
+ },
+ {
+  "name": "Ballspielgruppe",
+  "slug": "ballspielgruppe",
+  "web": "ballspielgruppe",
+  "liga": "",
+  "info": {
+   "training": [
+    {
+     "d": "Montag",
+     "t": "16:15–17:00",
+     "h": "Reinhold-Meyerhof-Schulsporthalle (Eingang Briesingstraße)",
+     "a": "Zescher Straße 20-24, 12307 Berlin"
+    },
+    {
+     "d": "Dienstag",
+     "t": "16:00–17:00",
+     "h": "Bruno-H.-Bürgel-Grundschule",
+     "a": "Rackebüller Weg, 12305 Berlin"
+    },
+    {
+     "d": "Donnerstag",
+     "t": "16:00–17:00",
+     "h": "Sporthalle Theodor-Haubach-Schule (neue Halle, Eingang Lutherstraße)",
+     "a": "Grimmstraße 9-11, 12305 Berlin"
+    },
+    {
+     "d": "Donnerstag",
+     "t": "16:00–17:00",
+     "h": "Sporthalle Naharyia-Grundschule",
+     "a": "Naharyiastraße 17, 12309 Berlin"
+    },
+    {
+     "d": "Freitag",
+     "t": "17:00–18:00",
+     "h": "Bruno-H.-Bürgel-Grundschule",
+     "a": "Rackebüller Weg, 12305 Berlin"
+    }
+   ],
+   "trainer": [
+    "Jacqueline Mularski",
+    "Silke Oesterling",
+    "Athina Papadopoulos"
+   ]
+  }
+ },
+ {
+  "name": "Bewegungszwerge",
+  "slug": "bewegungszwerge",
+  "web": "bewegungszwerge",
+  "liga": "",
+  "info": {
+   "training": [
+    {
+     "d": "Donnerstag",
+     "t": "16:15–17:00",
+     "h": "Ikarus-Grundschule",
+     "a": "Körtingstraße 45, 12107 Berlin"
+    }
+   ],
+   "trainer": [
+    "Lena Schauer"
+   ]
+  }
+ }
+]

@@ -324,7 +324,7 @@ def parse_team_page(html):
     p = LineParser(); p.feed(html); p.close()
     L = p.lines; train, trainer = [], []
     for i, ln in enumerate(L):
-        m = re.match(r"^(%s)\s*,?\s*(\d{1,2})[:.](\d{2})\s*(?:-|–|bis)\s*(\d{1,2})[:.](\d{2})" % DAYS, ln)
+        m = re.match(r"^(%s)\s*[,:]?\s*(\d{1,2})[:.](\d{2})\s*(?:-|–|bis)\s*(\d{1,2})[:.](\d{2})" % DAYS, ln)
         if not m: continue
         hall, href = "", ""
         if i + 1 < len(L) and not re.match(r"^(%s)\b" % DAYS, L[i+1]):
@@ -419,17 +419,32 @@ def main():
     used = {g["loc"] for t in out for g in t["games"] if g.get("loc") and (LSV in g["home"] or LSV in g["guest"]) and not g["score"]}
     halls = resolve_halls({k: v for k, v in found.items() if k in used}, prev.get("halls", {}))
     if not found: halls = prev.get("halls", {})
+    kleine = []
+    try: ks = json.load(open("kleine.json", encoding="utf-8"))
+    except Exception: ks = []
+    for k in ks:
+        print("Lese", k["name"])
+        info = json.loads(json.dumps(k.get("info", {})))
+        try:
+            w = web_info(k, info.get("training") if isinstance(info.get("training"), list) else [])
+            if w:
+                if w[0]: info["training"] = w[0]
+                if w[1]: info["trainer"] = w[1]
+                print("  Web: %d Trainingszeiten, %d Trainer" % (len(w[0]), len(w[1])))
+        except Exception as e: print("  Web-Fehler:", e, file=sys.stderr)
+        kleine.append(dict(k, info=info)); time.sleep(1)
+    if not kleine: kleine = prev.get("kleine", [])
     news = fetch_news() or prev.get("news", [])
     try: pl = fetch_partner_logos()
     except Exception as e: print("  Partner-Fehler:", e, file=sys.stderr); pl = None
     plogos = pl if pl else prev.get("partnerLogos", {})
     print(len(plogos), "Partner-Logos")
     print(len(news), "Meldungen")
-    if prev.get("teams") == out and prev.get("halls") == halls and prev.get("news") == news and prev.get("partnerLogos", {}) == plogos:
+    if prev.get("teams") == out and prev.get("halls") == halls and prev.get("news") == news and prev.get("partnerLogos", {}) == plogos and prev.get("kleine", []) == kleine:
         print("Keine Aenderungen an den Daten.")
     else:
         now = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-        json.dump({"updated": now, "teams": out, "halls": halls, "news": news, "partnerLogos": plogos}, open("data.json", "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
+        json.dump({"updated": now, "teams": out, "halls": halls, "news": news, "partnerLogos": plogos, "kleine": kleine}, open("data.json", "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
         print("data.json geschrieben.")
     write_calendars(out, halls)
     if os.environ.get("SEND_REMINDERS") == "1":
